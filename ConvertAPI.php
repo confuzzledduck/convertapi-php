@@ -41,7 +41,7 @@ abstract class ConvertAPI {
   * Send a request to the API.
   *
   * @param string $filename Full path of file to convert.
-  * @return string Binary string with converted document.
+  * @return array Array containing request details and binary data. See above.
   */
 	protected function _apiRequest($filename) {
 	
@@ -77,9 +77,19 @@ abstract class ConvertAPI {
 	 // Check headers and return the document...
 				$headers = explode("\r\n", $curlReturnArray[1]);
 				if ($headers[0] == 'HTTP/1.1 200 OK') {
-					return $curlReturnArray[2];
+					$returnArray = array('document' => $curlReturnArray[2]);
+					foreach ($headers AS $headerLine) {
+						$headerParts = explode(': ', $headerLine);
+						switch ($headerParts[0]) {
+							case 'InputFormat': $returnArray['input'] = $headerParts[1]; break;
+							case 'OutputFormat': $returnArray['output'] = $headerParts[1]; break;
+							case 'CreditsCost': $returnArray['cost'] = $headerParts[1]; break;
+							case 'FileSize': $returnArray['size'] = $headerParts[1]; break;
+						}
+					}
+					return $returnArray;
 				} else {
-					var_dump($curlReturnArray[1]);
+					throw new Exception('Error converting document.');
 				}
 
 			} else {
@@ -97,8 +107,9 @@ abstract class ConvertAPI {
   * Concrete classes must provide a convert method: a method which sends the
   * request to convertapi.com and deals with the response.
   *
-  * @param string $filename Full path of file to convert.
+  * @param string $inputFilename Full path of file to convert.
+  * @param string $outputFilename Full path of file to write with converted document.
   */
-	abstract public function convert($filename);
+	abstract public function convert($inputFilename, $outputFilename = null);
 
 }
