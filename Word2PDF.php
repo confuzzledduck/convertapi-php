@@ -17,12 +17,6 @@ class Word2Pdf extends ConvertAPI {
   */
 	protected $_apiUrl = 'http://do.convertapi.com/Word2Pdf';
 
- /**
-  * Additional parameters to send to convertapi.com when carrying out a Word to
-  * PDF conversion.
-  */
-	protected $_additionalParameters = array();
-
  /* Magic methods. */
 	
  /**
@@ -75,14 +69,6 @@ class Word2Pdf extends ConvertAPI {
 				}
 			break;
 		}
-	
-	}
-	
- /* Public methods. */
-	
-	public function convert($filename) {
-
-		var_dump($this->_apiRequest($filename));
 	
 	}
 

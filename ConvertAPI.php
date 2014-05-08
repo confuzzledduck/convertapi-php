@@ -16,6 +16,12 @@ abstract class ConvertAPI {
   */
 	public $apiKey = null;
 	
+ /**
+  * Additional parameters to send to convertapi.com when carrying out a Word to
+  * PDF conversion.
+  */
+	protected $_additionalParameters = array();
+	
  /* Magic methods. */
 	
  /**
@@ -33,6 +39,40 @@ abstract class ConvertAPI {
 			$this->apiKey = $apiKey;
 		}
 	
+	}
+	
+ /* Public methods. */
+ /**
+  * Concrete classes must provide a convert method: a method which sends the
+  * request to convertapi.com and deals with the response.
+  *
+  * @param string $inputFilename Full path of file to convert.
+  * @param string $outputFilename Full path of file to write with converted document.
+  */
+	public function convert($inputFilename, $outputFilename = null) {
+
+		if ($outputFilename !== null) {
+			if (!is_writable($outputFilename)) {
+				throw new Exception('Output file target is not writable.');
+			}
+		}
+
+		try {
+			$convertResponse = $this->_apiRequest($inputFilename);
+			if ($outputFilename !== null) {
+				if (file_put_contents($outputFilename, $convertResponse['document'])) {
+					unset($convertResponse['document']);
+					return $convertResponse;
+				} else {
+					throw new Exception('Error writing output file.');
+				}
+			} else {
+				return $convertResponse['document'];
+			}
+		} catch (Exception $e) {
+			throw $e;
+		}
+
 	}
 
  /* Protected methods. */
@@ -102,14 +142,15 @@ abstract class ConvertAPI {
 	}
 	
  /* Abstract methods. */
-	
+ 
  /**
-  * Concrete classes must provide a convert method: a method which sends the
-  * request to convertapi.com and deals with the response.
+  * Magic setter method. Concrete classes must define this to handle the
+  * _additionalParametersvariable. It should check and set all valid additional
+  * parameters for the given API.
   *
-  * @param string $inputFilename Full path of file to convert.
-  * @param string $outputFilename Full path of file to write with converted document.
+  * @param string $name Name of the additional parameter to set.
+  * @param string $value Value to set the parameter to.
   */
-	abstract public function convert($inputFilename, $outputFilename = null);
+	abstract public function __set($name, $value);
 
 }
