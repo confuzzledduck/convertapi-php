@@ -21,6 +21,12 @@ abstract class ConvertAPI {
   * PDF conversion.
   */
 	protected $_additionalParameters = array();
+
+ /**
+  * An array of valid input file formats. Will be checked before conversion, and
+  * therefore must be populated by concrete classes.
+  */
+	protected $_validInputFormats = array();
 	
  /* Magic methods. */
 	
@@ -50,13 +56,25 @@ abstract class ConvertAPI {
   * @param string $outputFilename Full path of file to write with converted document.
   */
 	public function convert($inputFilename, $outputFilename = null) {
+	
+	 // Check input file...
+		$inputFilenameChunks = explode('.', $inputFilename);
+		if (in_array(array_pop($inputFilenameChunks), $this->_validInputFormats)) {
+			if (!is_readable($inputFilename)) {
+				throw new Exception('Input file is not readable.');
+			}
+		} else {
+			throw new Exception('Invalid input file type.');
+		}
 
+	 // Check output file...
 		if ($outputFilename !== null) {
 			if (!is_writable($outputFilename)) {
 				throw new Exception('Output file target is not writable.');
 			}
 		}
 
+	 // Do conversion...
 		try {
 			$convertResponse = $this->_apiRequest($inputFilename);
 			if ($outputFilename !== null) {

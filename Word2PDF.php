@@ -16,6 +16,14 @@ class Word2Pdf extends ConvertAPI {
   * URL of the appropriate convertapi.com API.
   */
 	protected $_apiUrl = 'http://do.convertapi.com/Word2Pdf';
+	
+ /**
+  * An array of valid input file formats for this conversion. Overrides the
+  * parent array.
+  */
+	protected $_validInputFormats = array('doc', 'docx', 'dot',
+	                                      'dotx', 'wpd', 'wps',
+	                                      'wri');
 
  /* Magic methods. */
 	
