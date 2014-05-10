@@ -52,28 +52,28 @@ class Word2Pdf extends ConvertAPI {
 				if (is_string($value)) {
 					$this->_additionalParameters[$name] = $value;
 				} else {
-					throw new Exception($name.' must be a string.');
+					throw new \Exception($name.' must be a string.');
 				}
 			break;
 			case 'OutputFormat':
 				if (is_string($value) && in_array($value, array('pdf', 'pdfa', 'png', 'jpg', 'tif'))) {
 					$this->_additionalParameters[$name] = $value;
 				} else {
-					throw new Exception($name.' must be "pdf", "pdfa", "png", "jpg" or "tif".');
+					throw new \Exception($name.' must be "pdf", "pdfa", "png", "jpg" or "tif".');
 				}
 			break;
 			case 'AlternativeParser': case 'StoreFile':
 				if (is_bool($value)) {
 					$this->_additionalParameters[$name] = $value;
 				} else {
-					throw new Exception($name.' must be a boolean value.');
+					throw new \Exception($name.' must be a boolean value.');
 				}
 			break;
 			case 'Timeout':
 				if (is_int($value) && $value >= 5 && $value <= 600) {
 					$this->_additionalParameters[$name] = $value;
 				} else {
-					throw new Exception($name.' must be an integer between 5 and 600.');
+					throw new \Exception($name.' must be an integer between 5 and 600.');
 				}
 			break;
 		}

@@ -38,7 +38,7 @@ abstract class ConvertAPI {
 	public function __construct($apiKey = null) {
 	
 		if (!isset($this->_apiUrl)) {
-			throw new Exception('Child classes of ConvertAPI must specify a value for $this->_apiUrl.');
+			throw new \Exception('Child classes of ConvertAPI must specify a value for $this->_apiUrl.');
 		}
 	
 		if ($apiKey != null) {
@@ -61,16 +61,16 @@ abstract class ConvertAPI {
 		$inputFilenameChunks = explode('.', $inputFilename);
 		if (in_array(array_pop($inputFilenameChunks), $this->_validInputFormats)) {
 			if (!is_readable($inputFilename)) {
-				throw new Exception('Input file is not readable.');
+				throw new \Exception('Input file is not readable.');
 			}
 		} else {
-			throw new Exception('Invalid input file type.');
+			throw new \Exception('Invalid input file type.');
 		}
 
 	 // Check output file...
 		if ($outputFilename !== null) {
 			if (!is_writable($outputFilename)) {
-				throw new Exception('Output file target is not writable.');
+				throw new \Exception('Output file target is not writable.');
 			}
 		}
 
@@ -82,12 +82,12 @@ abstract class ConvertAPI {
 					unset($convertResponse['document']);
 					return $convertResponse;
 				} else {
-					throw new Exception('Error writing output file.');
+					throw new \Exception('Error writing output file.');
 				}
 			} else {
 				return $convertResponse['document'];
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			throw $e;
 		}
 
@@ -147,14 +147,14 @@ abstract class ConvertAPI {
 					}
 					return $returnArray;
 				} else {
-					throw new Exception('Error converting document.');
+					throw new \Exception('Error converting document.');
 				}
 
 			} else {
-				throw new Exception('File does not exist or is not readable.');
+				throw new \Exception('File does not exist or is not readable.');
 			}
 		} else {
-			throw new Exception('Invalid API URL.');
+			throw new \Exception('Invalid API URL.');
 		}
 	
 	}
