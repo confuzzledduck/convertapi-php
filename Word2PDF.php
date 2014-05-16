@@ -34,7 +34,11 @@ class Word2Pdf extends ConvertAPI {
   */
 	public function __construct($apiKey = null) {
 
-		parent::__construct($apiKey);
+		try {
+			parent::__construct($apiKey);
+		} catch (\Exception $e) {
+			throw $e;
+		}
 	
 	}
 	
