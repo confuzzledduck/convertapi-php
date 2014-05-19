@@ -69,7 +69,7 @@ abstract class ConvertAPI {
 
 	 // Check output file...
 		if ($outputFilename !== null) {
-			if (!is_writable($outputFilename)) {
+			if (!((file_exists($outputFilename) && is_writable($outputFilename)) || is_writable(dirname($outputFilename)))) {
 				throw new \Exception('Output file target is not writable.');
 			}
 		}
