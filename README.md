@@ -7,6 +7,19 @@ ConvertApi is an online file conversion service for creating PDF and Images from
 
 Development of this library is not in any way connected with Baltsoft Software.
 
+Using
+-----
+
+Using the library is simple:
+
+1. Include the required concrete class ( include('Text2PDF.php'); )
+2. Instantiate the class ( $text2pdf = new ConvertAPI\Text2Pdf(); )
+3. Either:
+  1. Carry out the conversion using filesystem path for output ( $text2pdf->convert('/path/to/intput/file.txt', '/path/to/output/file.pdf'); )
+  2. Carry out the conversion using function return for output ( $text2pdf->convert('/path/to/intput/file.txt'); )
+
+The conversion will write the converted document to the given filesystem path and return verious details about the conversion (depending on the response from ConvertApi), or return a binary string representation of the document.
+
 Extending
 ---------
 
