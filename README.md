@@ -20,6 +20,8 @@ Using the library is simple:
 
 The conversion will write the converted document to the given filesystem path and return verious details about the conversion (depending on the response from ConvertApi), or return a binary string representation of the document.
 
+See example/example.php for a working example.
+
 Extending
 ---------
 
