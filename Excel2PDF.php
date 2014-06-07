@@ -5,7 +5,7 @@ namespace ConvertAPI;
 require_once('Abstract2PDF.php');
 
  /**
-  * Extends the ConvertAPI class to convert Exel documents into PDF format via
+  * Extends the ConvertAPI class to convert Excel documents into PDF format via
   * convertapi.com.
   *
   * @see http://www.convertapi.com/excel-pdf-api
