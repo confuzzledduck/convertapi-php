@@ -15,21 +15,6 @@ abstract class Abstract2Pdf extends ConvertAPI {
  /* Magic methods. */
 
  /**
-  * Constructor. Optionally sets the API key to use for calls to convertapi.com.
-  *
-  * @param string $apiKey Optional convertapi.com API key to use.
-  */
-	public function __construct($apiKey = null) {
-
-		try {
-			parent::__construct($apiKey);
-		} catch (\Exception $e) {
-			throw $e;
-		}
-
-	}
-
- /**
   * Magic setter method. Checks and sets values for $_additionalParameters.
   *
   * @param string $name Name of the additional parameter to set.
