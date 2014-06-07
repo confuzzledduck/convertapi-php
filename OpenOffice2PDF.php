@@ -2,7 +2,7 @@
 
 namespace ConvertAPI;
 
-require_once('ConvertAPI.php');
+require_once('Abstract2PDF.php');
 
  /**
   * Extends the ConvertAPI class to convert Microsoft Word documents into PDF
@@ -10,7 +10,7 @@ require_once('ConvertAPI.php');
   *
   * @see http://convertapi.com/word-pdf-api
   */
-class OpenOffice2Pdf extends ConvertAPI {
+class OpenOffice2Pdf extends Abstract2Pdf {
 
  /**
   * URL of the appropriate convertapi.com API.
@@ -30,64 +30,5 @@ class OpenOffice2Pdf extends ConvertAPI {
 	                                      'sti', 'stw', 'sxc',
 	                                      'sxg', 'sxi', 'sxm',
 	                                      'sxw', 'vor', 'wv2');
-
- /* Magic methods. */
-
- /**
-  * Constructor. Optionally sets the API key to use for calls to convertapi.com.
-  *
-  * @param string $apiKey Optional convertapi.com API key to use.
-  */
-	public function __construct($apiKey = null) {
-
-		try {
-			parent::__construct($apiKey);
-		} catch (\Exception $e) {
-			throw $e;
-		}
-
-	}
-
- /**
-  * Magic setter method. Checks and sets values for $_additionalParameters.
-  *
-  * @param string $name Name of the additional parameter to set.
-  * @param string $value Value to set the parameter to.
-  */
-	public function __set($name, $value) {
-
-		switch ($name) {
-			case 'DocumentTitle': case 'DocumentSubject':
-			case 'DocumentAuthor': case 'DocumentKeywords':
-				if (is_string($value)) {
-					$this->_additionalParameters[$name] = $value;
-				} else {
-					throw new \Exception($name.' must be a string.');
-				}
-			break;
-			case 'OutputFormat':
-				if (is_string($value) && in_array($value, array('pdf', 'pdfa', 'png', 'jpg', 'tif'))) {
-					$this->_additionalParameters[$name] = $value;
-				} else {
-					throw new \Exception($name.' must be "pdf", "pdfa", "png", "jpg" or "tif".');
-				}
-			break;
-			case 'AlternativeParser': case 'StoreFile':
-				if (is_bool($value)) {
-					$this->_additionalParameters[$name] = $value;
-				} else {
-					throw new \Exception($name.' must be a boolean value.');
-				}
-			break;
-			case 'Timeout':
-				if (is_int($value) && $value >= 5 && $value <= 600) {
-					$this->_additionalParameters[$name] = $value;
-				} else {
-					throw new \Exception($name.' must be an integer between 5 and 600.');
-				}
-			break;
-		}
-
-	}
 
 }
