@@ -5,10 +5,8 @@ namespace ConvertAPI;
 require_once('ConvertAPI.php');
 
  /**
-  * Extends the ConvertAPI class to convert Rich Text documents into PDF
+  * Extends the ConvertAPI class to convert various documents into PDF
   * format via convertapi.com.
-  *
-  * @see http://www.convertapi.com/text-pdf-api
   */
 abstract class Abstract2Pdf extends ConvertAPI {
 
