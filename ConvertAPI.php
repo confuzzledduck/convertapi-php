@@ -43,11 +43,12 @@ abstract class ConvertAPI {
 	protected $_additionalParameters = array();
 
  /**
-  * An array of valid input file formats. Will be checked before conversion, and
-  * therefore must be populated by concrete classes.
+  * An array of valid input file formats, or a string representing a URL. Will
+  * be checked before conversion and therefore must be populated by concrete
+  * classes.
   */
 	protected $_validInputFormats = array();
-	
+
  /* Magic methods. */
 	
  /**
@@ -77,14 +78,16 @@ abstract class ConvertAPI {
   */
 	public function convert($inputFilename, $outputFilename = null) {
 	
-	 // Check input file...
-		$inputFilenameChunks = explode('.', $inputFilename);
-		if (in_array(array_pop($inputFilenameChunks), $this->_validInputFormats)) {
-			if (!is_readable($inputFilename)) {
-				throw new \Exception('Input file is not readable.');
+	 // Check input file (if it's an array of local file extensions)...
+		if (is_array($this->_validInputFormats)) {
+			$inputFilenameChunks = explode('.', $inputFilename);
+			if (in_array(array_pop($inputFilenameChunks), $this->_validInputFormats)) {
+				if (!is_readable($inputFilename)) {
+					throw new \Exception('Input file is not readable.');
+				}
+			} else {
+				throw new \Exception('Invalid input file type.');
 			}
-		} else {
-			throw new \Exception('Invalid input file type.');
 		}
 
 	 // Check output file...
