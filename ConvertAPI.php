@@ -177,7 +177,7 @@ abstract class ConvertAPI {
 				throw new \Exception('File does not exist or is not readable.');
 			}
 		} else {
-			throw new \Exception('Invalid API URL.');
+			throw new \Exception('Unable to init cURL. Check PHP is compiled with cURL support.');
 		}
 	
 	}
