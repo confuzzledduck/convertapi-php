@@ -89,7 +89,7 @@ abstract class ConvertAPI {
 			} else {
 				throw new \Exception('Invalid input file type.');
 			}
-		} else {
+		} else if ($this->_validInputFormats == 'url') {
 			if (preg_match('/^https?:\/\//', $inputFilename)) {
 				$urlInput = true;
 			} else {
