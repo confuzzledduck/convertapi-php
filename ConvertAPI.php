@@ -79,6 +79,7 @@ abstract class ConvertAPI {
 	public function convert($inputFilename, $outputFilename = null) {
 	
 	 // Check input file (if it's an array of local file extensions)...
+		$urlInput = false;
 		if (is_array($this->_validInputFormats)) {
 			$inputFilenameChunks = explode('.', $inputFilename);
 			if (in_array(array_pop($inputFilenameChunks), $this->_validInputFormats)) {
@@ -87,6 +88,12 @@ abstract class ConvertAPI {
 				}
 			} else {
 				throw new \Exception('Invalid input file type.');
+			}
+		} else {
+			if (preg_match('/^https?:\/\//', $inputFilename)) {
+				$urlInput = true;
+			} else {
+				throw new \Exception('Invalid input URL.');
 			}
 		}
 
@@ -99,7 +106,7 @@ abstract class ConvertAPI {
 
 	 // Do conversion...
 		try {
-			$convertResponse = $this->_apiRequest($inputFilename);
+			$convertResponse = $this->_apiRequest($inputFilename, $urlInput);
 			if ($outputFilename !== null) {
 				if (file_put_contents($outputFilename, $convertResponse['document'])) {
 					unset($convertResponse['document']);
@@ -124,14 +131,23 @@ abstract class ConvertAPI {
   * @param string $filename Full path of file to convert.
   * @return array Array containing request details and binary data. See above.
   */
-	protected function _apiRequest($filename) {
+	protected function _apiRequest($filename, $urlInput = false) {
 	
 
 		if (function_exists('curl_init')) {
-			if (is_readable($filename)) {
+		
+	 // Set the source filename or URL...
+			if ($urlInput == true) {
+				$postFields = array('CUrl' => $filename);
+			} else {
+				if (is_readable($filename)) {
+					$postFields = array('File' => '@'.$filename);
+				} else {
+					throw new \Exception('File does not exist or is not readable.');
+				}
+			}
 
-	 // Build the post fields array...
-				$postFields = array('File' => '@'.$filename);
+	 // Build the rest of the post fields array...
 				if ($this->apiKey !== null) {
 					$postFields['ApiKey'] = $this->apiKey;
 				}
@@ -173,9 +189,6 @@ abstract class ConvertAPI {
 					throw new \Exception('Error converting document.');
 				}
 
-			} else {
-				throw new \Exception('File does not exist or is not readable.');
-			}
 		} else {
 			throw new \Exception('Unable to init cURL. Check PHP is compiled with cURL support.');
 		}
