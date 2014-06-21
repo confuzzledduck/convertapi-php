@@ -95,6 +95,8 @@ abstract class ConvertAPI {
 			} else {
 				throw new \Exception('Invalid input URL.');
 			}
+		} else {
+			throw new \Exception('Invalid input format identifier.');
 		}
 
 	 // Check output file...
