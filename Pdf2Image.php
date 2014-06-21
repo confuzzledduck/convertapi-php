@@ -10,7 +10,7 @@ require_once('Abstract2Image.php');
   *
   * @see http://convertapi.com/pdf-image-api
   */
-class Pdf2Image extends Abstract2PowerPoint {
+class Pdf2Image extends Abstract2Image {
 
  /**
   * URL of the appropriate convertapi.com API.
