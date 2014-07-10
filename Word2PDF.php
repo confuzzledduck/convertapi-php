@@ -2,7 +2,7 @@
 
 namespace ConvertAPI;
 
-require_once('ConvertAPI.php');
+require_once('Abstract2PDF.php');
 
  /**
   * Extends the ConvertAPI class to convert Microsoft Word documents into PDF
@@ -10,7 +10,7 @@ require_once('ConvertAPI.php');
   *
   * @see http://convertapi.com/word-pdf-api
   */
-class Word2Pdf extends ConvertAPI {
+class Word2Pdf extends Abstract2Pdf {
 
  /**
   * URL of the appropriate convertapi.com API.
