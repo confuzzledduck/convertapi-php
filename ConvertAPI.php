@@ -188,7 +188,7 @@ abstract class ConvertAPI {
 					}
 					return $returnArray;
 				} else {
-					throw new \Exception('Error converting document.');
+					throw new \Exception('Error converting document: '.trim(array_shift(explode("\n", $curlReturnArray[1]))));
 				}
 
 		} else {
