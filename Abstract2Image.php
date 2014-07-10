@@ -30,10 +30,10 @@ abstract class Abstract2Image extends ConvertAPI {
 				}
 			break;
 			case 'OutputFormat':
-				if (is_string($value) && in_array($value, array('pdf', 'pdfa', 'png', 'jpg', 'tif'))) {
+				if (is_string($value) && in_array($value, array('png', 'jpg', 'tif'))) {
 					$this->_additionalParameters[$name] = $value;
 				} else {
-					throw new \Exception($name.' must be "pdf", "pdfa", "png", "jpg" or "tif".');
+					throw new \Exception($name.' must be "png", "jpg" or "tif".');
 				}
 			break;
 			case 'AlternativeParser': case 'StoreFile':
