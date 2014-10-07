@@ -25,11 +25,7 @@ See example/example.php for a working example.
 Extending
 ---------
 
-The library currently supports the following conversions:
-* Word -> PDF
-* Text -> PDF
-* Rich Text -> PDF
-* Open Office -> PDF
+The library currently supports all the conversions available via convertapi.com.
 
 Addition of new conversions is simply a matter of extending the abstract ConvertAPI class and
 
