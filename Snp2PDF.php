@@ -15,7 +15,7 @@ class Snp2Pdf extends Abstract2Pdf {
  /**
   * URL of the appropriate convertapi.com API.
   */
-	protected $_apiUrl = 'http://do.convertapi.com/Snp2Pdf';
+	protected $_apiUrl = 'https://do.convertapi.com/Snp2Pdf';
 
  /**
   * An array of valid input file formats for this conversion. Overrides the

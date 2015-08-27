@@ -15,7 +15,7 @@ class Pdf2Image extends Abstract2Image {
  /**
   * URL of the appropriate convertapi.com API.
   */
-	protected $_apiUrl = 'http://do.convertapi.com/Pdf2Image';
+	protected $_apiUrl = 'https://do.convertapi.com/Pdf2Image';
 
  /**
   * An array of valid input file formats for this conversion. Overrides the
