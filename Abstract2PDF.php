@@ -44,10 +44,10 @@ abstract class Abstract2Pdf extends ConvertAPI {
 				}
 			break;
 			case 'Timeout':
-				if (is_int($value) && $value >= 5 && $value <= 600) {
+				if (is_int($value) && $value >= 5 && $value <= 1200) {
 					$this->_additionalParameters[$name] = $value;
 				} else {
-					throw new \Exception($name.' must be an integer between 5 and 600.');
+					throw new \Exception($name.' must be an integer between 5 and 1200.');
 				}
 			break;
 		}
