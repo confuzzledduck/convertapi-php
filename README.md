@@ -3,7 +3,7 @@ convertapi-php
 
 PHP library for the [convertapi.com](http://www.convertapi.com) REST API.
 
-NB. This library currently works with the **old** convertapi API, **not** the newer (v2) API.
+NB. This library currently works with the **old** convertapi API, **not** the newer (v2) API. As it has been superseded and Baltsoft themselves released a PHP library for the newer API, I have archived this project.
 
 ConvertApi is an online file conversion service for creating PDF and Images from various source files, such as Word documents, web pages and raw HTML. converapi-php provides a set of classes for using the ConvertApi service with PHP.
 
